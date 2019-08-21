@@ -1,5 +1,44 @@
-# CMPS-3240-SIMD-ARM
+# CMPS 3240 Lab: Introduction to SIMD
 An introduction to SIMD operations with basic linear algebra subroutines
+
+## Objectives
+
+During this lab you will:
+
+1. Study a floating point (FP) implementation of AXPY
+2. Learn about ARMv8 SIMD operations
+3. Code SIMD operations at the assembly level
+4. Benchmark AXPY operations with and without SIMD
+
+## Prerequisites
+
+* Single-instruction Multiple-Datastream (SIMD) concept
+* Book's description of ARM Neon<sup>a</sup>
+* Element14's description of ARMv8 FP/SIMD registers (Sec. 4.4.2)<sup>1</sup>
+* Element14's description of SIMD load/store registers (Sec. 5.7.22)<sup>1</sup>
+* Element14's description of SIMD load/store arithmetic (Sec. 5.7.4)<sup>1</sup>
+
+This lab assumes you have read the above topics. Please take a look at them before the lab to ensure timely completion of the lab. Element14 is a manufacturer of embedded systems that often use ARM processors. While they are not the official maintainer of ARMv8, I find their documentation to be more readable and thus useful than the ARM infocenter.
+
+## Requirements
+
+The following is a list of requirements to complete the lab. Some labs can completed on any machine, whereas some require you to use a specific departmental teaching server. You will find this information here.
+
+### Software
+
+We will use the following programs:
+
+* `gcc`
+* `git`
+* `gdb`
+
+### Compatability
+
+This lab requires the departmental ARM server, `fenrir.cs.csubak.edu`. It will not work on `odin.cs.csubak.edu`, `sleipnir.cs.csubak.edu`, other PCs, etc. that have x86 processors. It may work on a Raspberry Pi or similar system on chip with ARM, but it must be ARMv8-a.
+
+| Linux | Mac | Windows |
+| :--- | :--- | :--- |
+| Limited | No | No |
 
 ## Background
 
@@ -153,3 +192,10 @@ For full credit, show the instructor your results for the following benchmark tr
 2. 4-lane SIMD `faxpy()` (Instructions given)
 2. 2-lane SIMD `faxpy()` (Instructions *not* given)
 
+## References
+
+<sup>1</sup>https://www.element14.com/community/servlet/JiveServlet/previewBody/41836-102-1-229511/ARM.Reference_Manual.pdf
+
+## Footnotes
+
+<sup>a</sup> The book refers to ARM NEON, which is an optional ISA for a previous version of ARM. The version of ARM we are using, ARMv8, has folded SIMD instructions into the regular set of operations, and the mnemoics may be different from the textbook.
