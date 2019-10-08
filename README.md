@@ -62,7 +62,7 @@ With SIMD, the processor supports instructions that:
 3. With a single instruction, store a vector register into multiple data points.
 4. With a single instruction, perform arithmetic independently on each value in a vector register.
 
-Conventionally, the loop-body would execute some function `func()` on data points i, i + 1, i + 2 and so on. However, with these features, the processor can execute multiple data points with a single loop iteration. For example, (i, i + 1), (i + 2, i + 3), etc. where each unit of work is executed in parallel. This is similar to loop unrolling, except the parallelism is handled by the processor on the hardware side. Assuming the operation does 2 units of work with each iteration, the operation costs n/2 * (time of each loop + overhead).
+Conventionally, the loop-body would execute some function `func()` on data points i, i + 1, i + 2 and so on. However, with these features, the processor can execute multiple data points with a single loop iteration. For example, (i, i + 1), (i + 2, i + 3), etc. where each unit of work is executed in parallel. This is similar to loop unrolling, except the parallelism is handled by the processor on the hardware side. Assuming the operation does n units of work with each iteration, the operation costs ((time of each loop)/n + overhead).
 
 ### FP/SIMD Registers
 
@@ -89,7 +89,7 @@ FP/SIMD registers can hold a vector--that is, a set of contents rather than a si
 | vt.1D | 64 | 1 |
 | vt.2D | 64 | 2 |
 
-For example, if you wanted to apply 4-lane SIMD on single precision floating points, register `v0.4s` is a valid choice. If you wanted to apply a 8-lane SIMD on half-word integers (16 bits ea.), register `v19.8h` is a valid choice. Notice in all examples that bits times lanes equals 128. If bits times lanes does not equal 128 the upper 64 bits of are ignored when read and set to zero on a write. You can also randomly access individual elements in a vector register with C-style array indexing. For example, `v0.2s[0]` refers to the first 32-bit in a vector register. However,  `v0.2s[0]` is not synonymous with `s0`, they are different registers.
+For example, if you wanted to apply 4-lane SIMD on single precision floating points, register `v0.4s` is a valid choice. If you wanted to apply a 8-lane SIMD on half-word integers (16 bits ea.), register `v19.8h` is a valid choice. Notice in all examples that bits times lanes is no greater than 128. If bits times lanes does not equal 128 the upper 64 bits of are ignored when read and set to zero on a write. You can also randomly access individual elements in a vector register with C-style array indexing. For example, `v0.2s[0]` refers to the first 32-bit in a vector register. However,  `v0.2s[0]` is not synonymous with `s0`, they are different registers.
 
 Further, unlike general purpose operations, FP/SIMD instructions often specify the type of value in the instruction mnemonic. Valid types are integers (signed, unsigned or irrelevant), floating point, polynomial or cryptographic hash.
 
@@ -113,6 +113,8 @@ Study `faxpy.s` and the Makefile, and when you're confident continue. We impleme
 
 * Floating point registers have a different notation (see Background)
 * Floating point operations sometimes use different instructions, often prefixed with an `f`. E.g. `fadd` vs. `add`.
+
+*Sidebar: This is the first lab where we are linking C-code with ARM code. The benchmark has been created in C, and you must code the subroutine called by the benchmark in ARM. The framework for the code is all there, you just need to insert the appropriate SIMD commands in faxpy.s.*
 
 A good place to start is to copy the `faxpy()` solution and modify the code:
 
