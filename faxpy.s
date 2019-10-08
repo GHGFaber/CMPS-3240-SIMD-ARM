@@ -23,11 +23,10 @@ _looptop:
 	beq 	_loopquit
 	# Dereference the pointers:
 	# s1 - x[i] ; s2 - y[i]
-	# DONT clobber f0 here its the input arg. Use post-index format here to
-	# avoid having to separately increment pointers.
+	# Use post-index format here to avoid having to separately increment pointers.
 	ldr 	s1, [x1], 4
 	ldr 	s2, [x2], 4
-	# Do the math ...
+	# Do the math ... fadd is addition for floating points
 	fadd	s0, s0, s2
 	# Store them into result, loop cleanup
 	str	s0, [x3], 4
