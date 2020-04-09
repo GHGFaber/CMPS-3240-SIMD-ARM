@@ -27,7 +27,7 @@ _looptop:
 	ldr 	s1, [x1], 4
 	ldr 	s2, [x2], 4
 	# Do the math ... fadd is addition for floating points
-	fadd	s0, s0, s2
+	fadd	s0, s1, s2
 	# Store them into result, loop cleanup
 	str	s0, [x3], 4
 	add 	w5, w5, 1
